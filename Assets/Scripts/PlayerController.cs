@@ -72,6 +72,16 @@ public class PlayerController : MonoBehaviour
             if(isPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
                 animator.SetTrigger("Jump");
             }
+
+        //  Crouch
+            if(isPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
+                animator.SetBool("Crouch", true);
+                // horizontal = 0;
+            }
+            else if(Input.GetKeyUp(KeyCode.C)) {
+                animator.SetBool("Crouch", false);
+            }
+            
         
     }
 }

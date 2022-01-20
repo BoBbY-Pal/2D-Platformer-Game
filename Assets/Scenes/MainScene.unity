@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 647705193}
   - component: {fileID: 647705192}
   - component: {fileID: 647705191}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: PlatformTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 7.014804, y: -1.6336021}
+  m_Offset: {x: 10.491289, y: -1.6336021}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -247,7 +247,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30.060022, y: 2.731761}
+  m_Size: {x: 37.012978, y: 2.731761}
   m_EdgeRadius: 0
 --- !u!483693784 &647705192
 TilemapRenderer:
