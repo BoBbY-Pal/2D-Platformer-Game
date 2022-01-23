@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private bool isCrouched;
     public float jump;
+    public bool isDead;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
@@ -17,10 +19,14 @@ public class PlayerController : MonoBehaviour
     void Awake() {
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        isDead = false;
     }
 
     void Update()
-    {   //  Detecting user inputs
+    {   
+        if(isDead)
+            return;
+        //  Detecting user inputs
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         
@@ -35,6 +41,12 @@ public class PlayerController : MonoBehaviour
         //  Changing isGrounded parameter in animator.
         if(isPlayerGrounded()) { animator.SetBool("isGrounded", true ); }
         else { animator.SetBool("isGrounded", false ); }
+        
+        DamagePlayerHealth();
+    }
+
+    private void DamagePlayerHealth()
+    {
         
     }
 
@@ -58,9 +70,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void KillPlayer() 
-    {   Debug.Log("Player killed by enemy");
-        Destroy(gameObject);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    {   
+        Debug.Log("Player killed by enemy");
+        animator.SetTrigger("Death");
+        isDead  = true;
     }
 
     public void PickUpKey() 
