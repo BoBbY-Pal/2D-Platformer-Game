@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {  
@@ -50,11 +51,22 @@ public class PlayerController : MonoBehaviour
             _rigidbody2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
     }
+    
+    public void ReloadScene() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void KillPlayer() 
+    {   Debug.Log("Player killed by enemy");
+        Destroy(gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     public void PickUpKey() 
     {
         Debug.Log("Key picked  up");
-        scoreController.IncreaseScore(10);
+        scoreController.IncreaseScore(5);
     }
     private bool isPlayerGrounded()         //  Checks player is on ground or not
     {   

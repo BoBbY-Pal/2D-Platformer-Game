@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoseController : MonoBehaviour
-{   public string CurrentScene;
+{   PlayerController playerController;
     private void OnTriggerEnter2D(Collider2D BoundaryCollision) 
     {
         if(BoundaryCollision.gameObject.GetComponent<PlayerController>() != null) {
             Debug.Log("Player fell off!!");
-            SceneManager.LoadScene(CurrentScene);
+            playerController.ReloadScene();
         }     
     }
+   
 }
