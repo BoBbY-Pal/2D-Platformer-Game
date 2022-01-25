@@ -16,26 +16,29 @@ public class PlayerController : MonoBehaviour
     //---------------------------------------------------
 
     public Animator animator;
-    public ScoreScript scoreController;
     public float speed;
     private bool isCrouched;
     public float jump;
-    public bool isDead;
+    private bool isDead;
     
+    public GameOverUIController gameOverUI;
+    public ScoreScript scoreController;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
 
     void Awake() {
+        
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        
         isDead = false;
     }
 
     void Update()
-    {   if(health == 0) {
-        KillPlayer();
-        }
+    {   
+       
+
         if(isDead)
             return;
         //  Detecting user inputs
@@ -79,16 +82,19 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void ReloadScene() 
+    public void ReloadCurrentScene() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void KillPlayer() 
     {   
+        if(isDead) 
+            return;
         Debug.Log("Player killed by enemy");
         animator.SetTrigger("Death");
         isDead  = true;
+        gameOverUI.PlayerDied();
     }
 
     public void PickUpKey() 

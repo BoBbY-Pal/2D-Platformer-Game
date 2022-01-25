@@ -9,15 +9,15 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D EnemyCollision) 
     {   playerController = EnemyCollision.gameObject.GetComponent<PlayerController>();
         if(playerController != null) {
-           StartCoroutine(PlayerDeath2());
+           StartCoroutine(PlayerDeath());
         }
     }
 
-    IEnumerator PlayerDeath2()     
+    IEnumerator PlayerDeath()     
     {  
         playerController.KillPlayer();
         yield return new WaitForSeconds(4);
-        playerController.ReloadScene();
+        // playerController.ReloadCurrentScene();
     }
     
 } 
