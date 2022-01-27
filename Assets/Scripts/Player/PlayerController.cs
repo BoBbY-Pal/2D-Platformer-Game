@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {   
-       
-
         if(isDead)
             return;
         //  Detecting user inputs
@@ -84,7 +82,7 @@ public class PlayerController : MonoBehaviour
     
     public void ReloadCurrentScene() 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void KillPlayer() 

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverUIController : MonoBehaviour 
-{
+{   
     public Button restartButton;
    
     private void Awake() {
@@ -20,6 +20,6 @@ public class GameOverUIController : MonoBehaviour
     private void RestartGame()
     {
         Debug.Log("Restart Button ClICKED");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
     }
 }
