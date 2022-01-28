@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelWonController : MonoBehaviour
-{   public string NextScene;
+{   
     private void OnTriggerEnter2D(Collider2D collision) 
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null) {
             Debug.Log("Level Completed!!");
-            SceneManager.LoadScene(NextScene);
-            // SceneManager.LoadScene(SceneManager.GetActiveScene() + 1);
+            LevelsManager.Instance.MarkLevelComplete();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }     
     }
 }

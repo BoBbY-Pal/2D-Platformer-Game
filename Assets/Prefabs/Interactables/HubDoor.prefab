@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2995049353525103598}
   - component: {fileID: 2286064370985677422}
   - component: {fileID: 2286064370985677420}
-  - component: {fileID: 2286064370985677423}
+  - component: {fileID: 6090080005307541798}
   m_Layer: 11
   m_Name: HubDoor
   m_TagString: Untagged
@@ -130,7 +130,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2286064370985677423
+--- !u!114 &6090080005307541798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +139,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5228831053774635907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1e0475a5af325c4e832d9989f0fdfa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8da026b291a9a904b988266ded95ed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: SceneOne
