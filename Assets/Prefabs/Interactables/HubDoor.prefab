@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2995049353525103598}
   - component: {fileID: 2286064370985677422}
   - component: {fileID: 2286064370985677420}
-  - component: {fileID: 6090080005307541798}
+  - component: {fileID: -827825087482276485}
   m_Layer: 11
   m_Name: HubDoor
   m_TagString: Untagged
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 21a8468d0bb5f5041bd3c4c331d21a80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,7 +130,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6090080005307541798
+--- !u!114 &-827825087482276485
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

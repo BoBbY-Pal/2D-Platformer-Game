@@ -19,12 +19,14 @@ public class GameOverUIController : MonoBehaviour
     }
 
     private void ReturnToMain()
-    {
+    {   
+        SoundManager.Instance.Play(Sounds.ExitButtonClick);
         SceneManager.LoadScene(0);
     }
     private void RestartGame()
-    {
+    {   
         Debug.Log("Restart Button ClICKED");
+        SoundManager.Instance.Play(Sounds.RestartButtonClick);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
     }
 }
