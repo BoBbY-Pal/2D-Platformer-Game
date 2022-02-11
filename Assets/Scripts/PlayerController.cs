@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {  
     public Animator animator;
+    public ScoreScript scoreController;
     public float speed;
     private bool isCrouched;
     public float jump;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private void MoveCharacter(float horizontal,float vertical)
     {  
         //   Move character horizotally
-        // if(isPlayerGrounded() && horizontal > 0) {
+       
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
@@ -50,6 +51,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PickUpKey() 
+    {
+        Debug.Log("Key picked  up");
+        scoreController.IncreaseScore(10);
+    }
     private bool isPlayerGrounded()         //  Checks player is on ground or not
     {   
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(_capsuleCollider2d.bounds.center, _capsuleCollider2d.bounds.size, 0f, Vector2.down, .1f, platformLayerMask);
