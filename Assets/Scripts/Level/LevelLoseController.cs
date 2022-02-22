@@ -9,8 +9,7 @@ public class LevelLoseController : MonoBehaviour
     {
         if(BoundaryCollision.gameObject.GetComponent<PlayerController>() != null) {
             Debug.Log("Player fell off!!");
-            playerController.ReloadScene();
+            playerController.ReloadCurrentScene();
         }     
     }
-   
 }
