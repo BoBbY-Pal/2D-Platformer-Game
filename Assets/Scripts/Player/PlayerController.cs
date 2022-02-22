@@ -1,33 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {  
+    //   For health function 
+    public int health;
+    public int numOfHeart;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
+
+    //---------------------------------------------------
+
     public Animator animator;
-    public ScoreScript scoreController;
     public float speed;
     private bool isCrouched;
     public float jump;
+    private bool isDead;
+    
+    private AudioSource footstep;
+    public GameOverUIController gameOverUI;
+    public ScoreScript scoreController;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
 
     void Awake() {
+        footstep = GetComponent<AudioSource>();
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        
+        isDead = false;
+        // SoundManager.Instance.PlayEnvironmentMusic(Sounds.EnvironmentalAmbian);
     }
 
     void Update()
-    {   //  Detecting user inputs
+    {   
+        if(isDead)
+            return;
+        //  Detecting user inputs
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         
+        HealthHeart();
+
         //  Setting speed to zero so that player can't move while crouching.
         if(isCrouched == true) {
             horizontal = 0;
         }
-        //Function calling
+        
+
         PlayerMovementAnimation(horizontal, vertical);
         MoveCharacter(horizontal, vertical);
 
@@ -35,6 +60,16 @@ public class PlayerController : MonoBehaviour
         if(isPlayerGrounded()) { animator.SetBool("isGrounded", true ); }
         else { animator.SetBool("isGrounded", false ); }
         
+        // DamagePlayerHealth();
+    }
+
+    // private void DamagePlayerHealth()
+    // {
+        
+    // }
+    private void Footstep()
+    {
+        footstep.Play();
     }
 
     private void MoveCharacter(float horizontal,float vertical)
@@ -50,12 +85,46 @@ public class PlayerController : MonoBehaviour
             _rigidbody2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
     }
+    
+    public void ReloadCurrentScene() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void KillPlayer() 
+    {   
+        if(isDead) 
+            return;
+        Debug.Log("Player killed by enemy");
+        animator.SetTrigger("Death");
+        isDead  = true;
+        gameOverUI.PlayerDied();
+    }
 
     public void PickUpKey() 
     {
         Debug.Log("Key picked  up");
-        scoreController.IncreaseScore(10);
+        scoreController.IncreaseScore(5);
     }
+
+    public void HealthHeart()
+    {   
+        if(health > numOfHeart) {
+        health = numOfHeart;
+        }
+        for (int i = 0; i < hearts.Length; i++)
+        {   
+            if(i < health) {
+            hearts[i].sprite = fullHeart;    
+            } else hearts[i].sprite = emptyHeart;
+
+            if(i < numOfHeart ) {
+                hearts[i].enabled = true;
+            } else hearts[i].enabled = false;
+        }
+    
+    }
+    
     private bool isPlayerGrounded()         //  Checks player is on ground or not
     {   
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(_capsuleCollider2d.bounds.center, _capsuleCollider2d.bounds.size, 0f, Vector2.down, .1f, platformLayerMask);
