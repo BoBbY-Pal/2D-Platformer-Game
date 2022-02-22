@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float jump;
     private bool isDead;
     
+    private AudioSource footstep;
     public GameOverUIController gameOverUI;
     public ScoreScript scoreController;
     private Rigidbody2D _rigidbody2D;
@@ -28,11 +29,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
 
     void Awake() {
-        
+        footstep = GetComponent<AudioSource>();
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         
         isDead = false;
+        // SoundManager.Instance.PlayEnvironmentMusic(Sounds.EnvironmentalAmbian);
     }
 
     void Update()
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour
     // {
         
     // }
+    private void Footstep()
+    {
+        footstep.Play();
+    }
 
     private void MoveCharacter(float horizontal,float vertical)
     {  
