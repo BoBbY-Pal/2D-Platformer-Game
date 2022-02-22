@@ -14,7 +14,8 @@ public class MainMenuManager : MonoBehaviour
     }
 
     private void LevelSelection()
-    {
+    {  
+        SoundManager.Instance.Play(Sounds.StartButtonClick);
         SceneManager.LoadScene(1);
     }
 }
