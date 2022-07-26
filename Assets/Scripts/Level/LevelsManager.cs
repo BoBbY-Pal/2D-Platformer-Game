@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
@@ -7,8 +5,8 @@ public class LevelsManager : MonoBehaviour
 {
     private static LevelsManager instance;
     public static LevelsManager Instance{ get { return instance; } }
-    public string level1;
     public string[] levels;
+    
     private void Awake() 
     {
         if(instance == null) {
@@ -20,15 +18,16 @@ public class LevelsManager : MonoBehaviour
     }
     private void Start() 
     {
-        if(GetLevelStatus(level1) == LevelStatus.Locked) {
-            SetLevelStatus(level1, LevelStatus.Unlocked);
+        if (GetLevelStatus(levels[0]) == LevelStatus.Locked)
+        {
+            SetLevelStatus(levels[0], LevelStatus.Unlocked);
         }
     }
 
     public void MarkLevelComplete() 
     {
         Scene currentScene = SceneManager.GetActiveScene();
-
+        
         //  Set level status to completed 
         SetLevelStatus(currentScene.name, LevelStatus.Completed);       
 
@@ -50,5 +49,4 @@ public class LevelsManager : MonoBehaviour
         PlayerPrefs.SetInt(level, (int)levelStatus);
         Debug.Log("Setting " + level +" status " + levelStatus);
     }
-    
 }

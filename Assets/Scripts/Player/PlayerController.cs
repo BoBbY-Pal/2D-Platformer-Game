@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     
     private AudioSource footstep;
     public GameOverUIController gameOverUI;
-    public ScoreScript scoreController;
+    public ScoreController scoreController;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {   
         if(isDead)
+        {
             return;
+        }
         //  Detecting user inputs
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
@@ -88,7 +90,9 @@ public class PlayerController : MonoBehaviour
     
     public void ReloadCurrentScene() 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void KillPlayer() 

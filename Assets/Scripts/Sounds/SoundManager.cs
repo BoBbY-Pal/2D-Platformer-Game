@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEngine.Audio;
+
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
@@ -41,7 +39,8 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayEnvironmentMusic(Sounds sound)
-    {   if(IsMute) 
+    {   
+        if(IsMute) 
             return;
         AudioClip clip = GetSoundClip(sound);
         if(clip != null) {
@@ -67,12 +66,12 @@ public class SoundManager : MonoBehaviour
     {  
          if(IsMute)
             return;
-        AudioClip clip = GetSoundClip(sound);
-        if(clip != null) {
-            soundEffect.PlayOneShot(clip);
-        }   else {
-                Debug.LogError("Clip not found for sound type: " + sound );
-        }
+         AudioClip clip = GetSoundClip(sound);
+         if(clip != null) {
+             soundEffect.PlayOneShot(clip);
+         }   else {
+             Debug.LogError("Clip not found for sound type: " + sound );
+         }
     }
 
     private AudioClip GetSoundClip(Sounds sound)
