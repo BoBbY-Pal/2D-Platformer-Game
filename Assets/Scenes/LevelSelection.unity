@@ -891,7 +891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb9605064a881e4d91ce668a10ff5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1: Level1
   levels:
   - Level1
   - Level2
@@ -1142,7 +1141,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.33962262, g: 0.23091663, b: 0.09740119, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1214,7 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fcc579d1046fb4f8c156311bc6da43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: Level1
+  levelName: Level1
 --- !u!1 &1835888116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1276,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.34117648, g: 0.23137255, b: 0.09803922, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1349,7 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fcc579d1046fb4f8c156311bc6da43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: Level3
+  levelName: Level3
 --- !u!1 &1862908396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,7 +1361,7 @@ GameObject:
   - component: {fileID: 1862908399}
   - component: {fileID: 1862908398}
   m_Layer: 5
-  m_Name: SelectLevel
+  m_Name: SelectYourLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1548,7 +1547,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.34117648, g: 0.23137255, b: 0.09803922, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1620,7 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fcc579d1046fb4f8c156311bc6da43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: Level2
+  levelName: Level2
 --- !u!1 &2130853533
 GameObject:
   m_ObjectHideFlags: 0

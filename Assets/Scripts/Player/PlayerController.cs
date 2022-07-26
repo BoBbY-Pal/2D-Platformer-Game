@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {  
     //   For health function 
-    public int health;
+    public int currentHealth;
     public int numOfHeart;
     public Image[] hearts;
     public Sprite fullHeart;
@@ -22,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead;
     
     private AudioSource footstep;
-    public GameOverUIController gameOverUI;
+    public GameOverUI gameOverUI;
     public ScoreController scoreController;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
@@ -50,7 +48,7 @@ public class PlayerController : MonoBehaviour
         HealthHeart();
 
         //  Setting speed to zero so that player can't move while crouching.
-        if(isCrouched == true) {
+        if(isCrouched) {
             horizontal = 0;
         }
         
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
 
         //  Changing isGrounded parameter in animator.
-        if(isPlayerGrounded()) { animator.SetBool("isGrounded", true ); }
+        if(IsPlayerGrounded()) { animator.SetBool("isGrounded", true ); }
         else { animator.SetBool("isGrounded", false ); }
         
         // DamagePlayerHealth();
@@ -76,60 +74,62 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(float horizontal,float vertical)
     {  
-        //   Move character horizotally
+        //   Move character horizontally
        
         Vector3 position = transform.position;
         position.x += horizontal * speed * Time.deltaTime;
         transform.position = position;
        
        //   Jump
-        if(isPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
+        if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
             _rigidbody2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
     }
     
-    public void ReloadCurrentScene() 
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
-    public void KillPlayer() 
+    public void PlayerDied() 
     {   
         if(isDead) 
             return;
         Debug.Log("Player killed by enemy");
         animator.SetTrigger("Death");
         isDead  = true;
-        gameOverUI.PlayerDied();
+        
+        StartCoroutine(gameOverUI.GameOver());
     }
 
-    public void PickUpKey() 
+    public void KeyPickUp() 
     {
         Debug.Log("Key picked  up");
-        scoreController.IncreaseScore(5);
+        scoreController.IncreaseScore(50);
     }
 
-    public void HealthHeart()
+    private void HealthHeart()
     {   
-        if(health > numOfHeart) {
-        health = numOfHeart;
+        if(currentHealth > numOfHeart) {
+            currentHealth = numOfHeart;
         }
+        
         for (int i = 0; i < hearts.Length; i++)
         {   
-            if(i < health) {
-            hearts[i].sprite = fullHeart;    
-            } else hearts[i].sprite = emptyHeart;
+            if(i < currentHealth) 
+            {
+                hearts[i].sprite = fullHeart;    
+            } 
+            else 
+                hearts[i].sprite = emptyHeart;
 
-            if(i < numOfHeart ) {
+            if(i < numOfHeart ) 
+            {
                 hearts[i].enabled = true;
-            } else hearts[i].enabled = false;
+            } 
+            else 
+                hearts[i].enabled = false;
         }
     
     }
     
-    private bool isPlayerGrounded()         //  Checks player is on ground or not
+    private bool IsPlayerGrounded()         //  Checks player is on ground or not
     {   
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(_capsuleCollider2d.bounds.center, _capsuleCollider2d.bounds.size, 0f, Vector2.down, .1f, platformLayerMask);
         Color rayColor;
@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(_capsuleCollider2d.bounds.center + new Vector3(_capsuleCollider2d.bounds.extents.x, 0), Vector2.down * (_capsuleCollider2d.bounds.extents.y + .1f), rayColor);
         Debug.DrawRay(_capsuleCollider2d.bounds.center - new Vector3(_capsuleCollider2d.bounds.extents.x, 0), Vector2.down * (_capsuleCollider2d.bounds.extents.y + .1f), rayColor);
         Debug.DrawRay(_capsuleCollider2d.bounds.center - new Vector3(_capsuleCollider2d.bounds.extents.x, _capsuleCollider2d.bounds.extents.y + .1f), Vector2.right * (_capsuleCollider2d.bounds.extents.x), rayColor);
+
         Debug.Log(raycastHit2d.collider);
         return raycastHit2d.collider != null;
     }
@@ -157,13 +158,13 @@ public class PlayerController : MonoBehaviour
             }
             transform.localScale = scale;
     
-        //  JUMP
-            if(isPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
+            //  JUMP
+            if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
                 animator.SetTrigger("Jump");
             }
 
-        //  Crouch
-            if(isPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
+            //  Crouch
+            if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
                 animator.SetBool("Crouch", true);
                 isCrouched = true;
 

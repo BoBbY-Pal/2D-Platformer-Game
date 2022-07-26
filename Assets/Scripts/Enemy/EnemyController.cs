@@ -1,23 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class EnemyController : MonoBehaviour
-{   PlayerController playerController;
+{
+    private PlayerController _playerController;
 
-    private void OnTriggerEnter2D(Collider2D EnemyCollision) 
-    {   playerController = EnemyCollision.gameObject.GetComponent<PlayerController>();
-        if(playerController != null) {
-           StartCoroutine(PlayerDeath());
+    private void OnTriggerEnter2D(Collider2D enemyCollision) 
+    {  
+        _playerController = enemyCollision.gameObject.GetComponent<PlayerController>();
+        if(_playerController != null) {
+            _playerController.PlayerDied();
         }
     }
-
-    IEnumerator PlayerDeath()     
-    {  
-        playerController.KillPlayer();
-        yield return new WaitForSeconds(4);
-        // playerController.ReloadCurrentScene();
-    }
-    
 } 

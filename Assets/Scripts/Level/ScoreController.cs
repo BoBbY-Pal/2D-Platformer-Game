@@ -1,27 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ScoreController : MonoBehaviour 
 {   
-    private TextMeshProUGUI scoreText;
-    private int score = 0;
+    
+    private TextMeshProUGUI _scoreText;
+    private int _score = 0;
+    
     private void Awake ()
     {
-        scoreText = GetComponent<TextMeshProUGUI> ();
+        _scoreText = GetComponent<TextMeshProUGUI> ();
     }
+    
     private void Start() 
     {
-        RefreshUI();
+        UpdateScore();
     }
+    
     public void IncreaseScore(int increment)
     {
-            score += increment;
-            RefreshUI();
+            _score += increment;
+            UpdateScore();
     }
-    private void RefreshUI()
+    
+    private void UpdateScore()
     {
-        scoreText.text = "Score: " + score;
+        _scoreText.text = "Score: " + _score;
     }
 }

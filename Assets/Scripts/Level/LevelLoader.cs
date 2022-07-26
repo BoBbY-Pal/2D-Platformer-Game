@@ -1,22 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour 
 {
-    private Button button;
-    public string LevelName;
+    private Button _button;
+    public string levelName;
     void Awake() 
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(LoadLevel);
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(LoadLevel);
     }
 
     private void LoadLevel()
-    {   LevelStatus levelStatus = LevelsManager.Instance.GetLevelStatus(LevelName);
+    {   LevelStatus levelStatus = LevelsManager.Instance.GetLevelStatus(levelName);
        switch (levelStatus) {
             
             case LevelStatus.Locked:
@@ -25,11 +23,11 @@ public class LevelLoader : MonoBehaviour
                break;
             case LevelStatus.Unlocked:
                SoundManager.Instance.Play(Sounds.ButtonClick);
-               SceneManager.LoadScene(LevelName);
+               SceneManager.LoadScene(levelName);
                break;
             case LevelStatus.Completed:
                SoundManager.Instance.Play(Sounds.ButtonClick);
-               SceneManager.LoadScene(LevelName);
+               SceneManager.LoadScene(levelName);
                break;
        }
     }

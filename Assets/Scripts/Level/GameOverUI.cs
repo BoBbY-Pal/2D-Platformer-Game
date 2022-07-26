@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class GameOverUIController : MonoBehaviour 
+public class GameOverUI : MonoBehaviour 
 {   
     public Button restartButton;
     public Button exitButton;
@@ -13,9 +12,11 @@ public class GameOverUIController : MonoBehaviour
         exitButton.onClick.AddListener(ReturnToMain);
     }
 
-    public void PlayerDied() 
+    public IEnumerator GameOver() 
     {
-        gameObject.SetActive(true);         //It Wil enable the game over UI
+        yield return new WaitForSeconds(2f);
+
+        gameObject.SetActive(true);         // Game over panel
     }
 
     private void ReturnToMain()
@@ -25,7 +26,7 @@ public class GameOverUIController : MonoBehaviour
     }
     private void RestartGame()
     {   
-        Debug.Log("Restart Button ClICKED");
+        Debug.Log("Restart Button Clicked");
         SoundManager.Instance.Play(Sounds.RestartButtonClick);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
     }

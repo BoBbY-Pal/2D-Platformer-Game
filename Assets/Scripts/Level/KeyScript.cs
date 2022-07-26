@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class KeyScript : MonoBehaviour
 {   
-    private void OnTriggerEnter2D(Collider2D KeyCollision) 
+    private void OnTriggerEnter2D(Collider2D keyCollision)
     {
-        if(KeyCollision.gameObject.GetComponent<PlayerController>() != null) {
-            PlayerController playerController = KeyCollision.gameObject.GetComponent<PlayerController>();
-            playerController.PickUpKey();
-            Destroy(gameObject);
-        }     
+        if (keyCollision.gameObject.GetComponent<PlayerController>() == null) return;
+        PlayerController playerController = keyCollision.gameObject.GetComponent<PlayerController>();
+        playerController.KeyPickUp();
+        Destroy(gameObject);
     }
 }
