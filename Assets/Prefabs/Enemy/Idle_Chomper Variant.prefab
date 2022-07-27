@@ -73,23 +73,5 @@ PrefabInstance:
       value: Idle_Chomper Variant
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2041847384, guid: f50a0ba2da4da26469aea26f5d19fec2, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: f50a0ba2da4da26469aea26f5d19fec2, type: 3}
---- !u!1 &3112248335212303031 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8998699196162216660, guid: f50a0ba2da4da26469aea26f5d19fec2,
-    type: 3}
-  m_PrefabInstance: {fileID: 6327874560921616483}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4300010089294557001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3112248335212303031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84645ad0cc8335747b0f59864dd1c34d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

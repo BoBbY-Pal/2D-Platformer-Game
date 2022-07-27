@@ -3,81 +3,88 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager instance;
-    public static SoundManager Instance{ get { return instance; } }
     public AudioSource soundEffect;
     public AudioSource soundMusic;
     public AudioSource environmentSound;
-    public SoundType[] Sounds;
-    public bool IsMute = false;
+    public Sounds[] sound;
+    public bool isMute;
+    
     [Range(0f, 1f)]
-    public float Volume = 1f;
-   
+    public float volume = 1f;
+
+    #region SINGLETON
+    public static SoundManager Instance { get; private set; }
+
     private void Awake() 
     {
-        if(instance == null) {
-            instance = this;
+        if(Instance == null) {
+            Instance = this;
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
     }
+    #endregion
+    
     private void Start() 
     {
-        PlayMusic(global::Sounds.Music);    
+        PlayMusic(global::SoundTypes.Music);    
     }
 
     public void Mute(bool status)
     {
-        IsMute = status;
+        isMute = status;
     }
     public void SetVolume(float volume)
     {
-        Volume = volume;
-        soundMusic.volume = Volume;
-        soundEffect.volume = Volume;
+        this.volume = volume;
+        soundMusic.volume = this.volume;
+        soundEffect.volume = this.volume;
     }
 
-    public void PlayEnvironmentMusic(Sounds sound)
+    public void PlayEnvironmentMusic(SoundTypes soundType)
     {   
-        if(IsMute) 
+        if(isMute) 
             return;
-        AudioClip clip = GetSoundClip(sound);
+        AudioClip clip = GetSoundClip(soundType);
         if(clip != null) {
             environmentSound.clip = clip;
             environmentSound.Play();
         }   else {
-                Debug.LogError("Clip not found for sound type: " + sound );
+                Debug.LogError("Clip not found for sound type: " + soundType );
         }
     }
-    public void PlayMusic(Sounds sound)
-    {   if(IsMute) 
+
+    private void PlayMusic(SoundTypes soundType)
+    {   
+        if(isMute) 
             return;
-        AudioClip clip = GetSoundClip(sound);
+        AudioClip clip = GetSoundClip(soundType);
         if(clip != null) {
             soundMusic.clip = clip;
             soundMusic.Play();
         }   else {
-                Debug.LogError("Clip not found for sound type: " + sound );
+                Debug.LogError("Clip not found for sound type: " + soundType );
         }
     }
 
-    public void Play(Sounds sound)
+    public void Play(SoundTypes soundType)
     {  
-         if(IsMute)
+         if(isMute)
             return;
-         AudioClip clip = GetSoundClip(sound);
+         
+         AudioClip clip = GetSoundClip(soundType);
          if(clip != null) {
              soundEffect.PlayOneShot(clip);
          }   else {
-             Debug.LogError("Clip not found for sound type: " + sound );
+             Debug.LogError("Clip not found for sound type: " + soundType );
          }
     }
 
-    private AudioClip GetSoundClip(Sounds sound)
+    private AudioClip GetSoundClip(SoundTypes soundType)
     {
-        SoundType item = Array.Find(Sounds, i => i.soundType == sound);
+        Sounds item = Array.Find(sound, item => item.soundType == soundType);
         if(item != null) 
            return item.soundClip;
         return null;
@@ -85,19 +92,21 @@ public class SoundManager : MonoBehaviour
     }
 }
 [Serializable]
-public class SoundType
+public class Sounds
 {
-    public Sounds soundType;
+    public SoundTypes soundType;
     public AudioClip soundClip;
 }
-public enum Sounds
-{   StartButtonClick,
-    ExitButtonClick,
+public enum SoundTypes
+{   
+    StartButtonClick,
+    BackButtonClick,
     RestartButtonClick,
-    EnvironmentalAmbian,
+    LevelSelected,
+    EnvironmentalAmbiant,
     Music,
+    MusicDeathSting,
     ButtonClick,
-    PlayerMove,
     PlayerDeath,
-    EnemyDeath
+    Pickup
 }

@@ -45,12 +45,12 @@ PrefabInstance:
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.95
+      value: 42.89
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.27
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
@@ -97,10 +97,15 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4cd3e07407a055644884e26f08ef08ac, type: 2}
+    - target: {fileID: 6475856272028640293, guid: f50a0ba2da4da26469aea26f5d19fec2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8998699196162216660, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_Name
-      value: Patrolling_Chomper Variant
+      value: Patrolling_Chomper
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2041847384, guid: f50a0ba2da4da26469aea26f5d19fec2, type: 3}
@@ -131,4 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   distance: 2
-  grounDetection: {fileID: 6554755802109931299}
+  groundDetection: {fileID: 6554755802109931299}

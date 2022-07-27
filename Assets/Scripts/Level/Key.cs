@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class KeyScript : MonoBehaviour
+public class Key : MonoBehaviour
 {   
     private void OnTriggerEnter2D(Collider2D keyCollision)
     {

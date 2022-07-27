@@ -6,7 +6,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public void StartGame()
     {  
-        SoundManager.Instance.Play(Sounds.StartButtonClick);
+        SoundManager.Instance.Play(SoundTypes.StartButtonClick);
         SceneManager.LoadScene(1);
     }
 
@@ -17,6 +17,7 @@ public class MainMenuManager : MonoBehaviour
     
     public void Quit()
     {
+        SoundManager.Instance.Play(SoundTypes.BackButtonClick);
         Application.Quit();
     }
 }

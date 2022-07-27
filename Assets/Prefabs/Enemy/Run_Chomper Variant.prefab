@@ -45,12 +45,12 @@ PrefabInstance:
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.73
+      value: 67.7
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.13
+      value: -6.13
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
@@ -60,7 +60,7 @@ PrefabInstance:
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
@@ -85,7 +85,7 @@ PrefabInstance:
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2740144583876048004, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 8998699196162216660, guid: f50a0ba2da4da26469aea26f5d19fec2,
         type: 3}
       propertyPath: m_Name
-      value: Run_Chomper Variant
+      value: Run_Chomper
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2041847384, guid: f50a0ba2da4da26469aea26f5d19fec2, type: 3}
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e5b69c6d128a2428da99bac143322d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   distance: 2
-  grounDetection: {fileID: 1669184782122409848}
+  groundDetection: {fileID: 1669184782122409848}

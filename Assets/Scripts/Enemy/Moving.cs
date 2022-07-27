@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class PatrolingEnemy : MonoBehaviour
+public class Moving : MonoBehaviour
 {   
     public float speed;
     public float distance;
     private bool b_movingRight = true;
+    [Tooltip("Game object that is attached in front of a chomper that will throw a ray to detect a ground.")]
     public Transform groundDetection;
     
     void Update()

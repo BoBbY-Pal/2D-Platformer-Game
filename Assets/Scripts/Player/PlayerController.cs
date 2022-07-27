@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     //---------------------------------------------------
 
-    public Animator animator;
+    private Animator _animator;
     public float speed;
     private bool isCrouched;
     public float jump;
@@ -26,8 +26,10 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
 
-    void Awake() {
+    void Awake() 
+    {
         footstep = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         
@@ -57,8 +59,8 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
 
         //  Changing isGrounded parameter in animator.
-        if(IsPlayerGrounded()) { animator.SetBool("isGrounded", true ); }
-        else { animator.SetBool("isGrounded", false ); }
+        if(IsPlayerGrounded()) { _animator.SetBool("isGrounded", true ); }
+        else { _animator.SetBool("isGrounded", false ); }
         
         // DamagePlayerHealth();
     }
@@ -92,8 +94,9 @@ public class PlayerController : MonoBehaviour
         if(isDead) 
             return;
         Debug.Log("Player killed by enemy");
-        animator.SetTrigger("Death");
+        _animator.SetTrigger("Death");
         isDead  = true;
+        SoundManager.Instance.Play(SoundTypes.MusicDeathSting);
         
         StartCoroutine(gameOverUI.GameOver());
     }
@@ -101,6 +104,7 @@ public class PlayerController : MonoBehaviour
     public void KeyPickUp() 
     {
         Debug.Log("Key picked  up");
+        SoundManager.Instance.Play(SoundTypes.Pickup);
         scoreController.IncreaseScore(50);
     }
 
@@ -148,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovementAnimation(float horizontal,float vertical)   
     {   //  Horizontal Movement Animation
-            animator.SetFloat("Speed", Mathf.Abs(horizontal));
+            _animator.SetFloat("Speed", Mathf.Abs(horizontal));
             Vector3 scale = transform.localScale;
             if(horizontal < 0) {
                 scale.x = -1f * Mathf.Abs(scale.x);
@@ -160,17 +164,17 @@ public class PlayerController : MonoBehaviour
     
             //  JUMP
             if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
-                animator.SetTrigger("Jump");
+                _animator.SetTrigger("Jump");
             }
 
             //  Crouch
             if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
-                animator.SetBool("Crouch", true);
+                _animator.SetBool("Crouch", true);
                 isCrouched = true;
 
             }
             else if(Input.GetKeyUp(KeyCode.C)) {
-                animator.SetBool("Crouch", false);
+                _animator.SetBool("Crouch", false);
                 isCrouched = false;
             }
     }
