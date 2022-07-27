@@ -103,10 +103,12 @@ public enum SoundTypes
     BackButtonClick,
     RestartButtonClick,
     LevelSelected,
-    EnvironmentalAmbiant,
+    EnvironmentalAmbiance,
     Music,
     MusicDeathSting,
     ButtonClick,
-    PlayerDeath,
-    Pickup
+    ChomperAttack,
+    Pickup,
+    PlayerJump
+    
 }

@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {  
@@ -19,22 +17,26 @@ public class PlayerController : MonoBehaviour
     public float jump;
     private bool isDead;
     
-    private AudioSource footstep;
+    private AudioSource _footstep;
     public GameOverUI gameOverUI;
     public ScoreController scoreController;
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2d;
     [SerializeField] private LayerMask platformLayerMask;
 
+    // Input axis
+    private float _vertical;
+    private float _horizontal;
     void Awake() 
     {
-        footstep = GetComponent<AudioSource>();
+        _footstep = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         
         isDead = false;
-        // SoundManager.Instance.PlayEnvironmentMusic(Sounds.EnvironmentalAmbian);
+        
+        SoundManager.Instance.PlayEnvironmentMusic(SoundTypes.EnvironmentalAmbiance);
     }
 
     void Update()
@@ -43,20 +45,18 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        //  Detecting user inputs
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
+        
+        PlayerInputs();
         
         HealthHeart();
 
         //  Setting speed to zero so that player can't move while crouching.
         if(isCrouched) {
-            horizontal = 0;
+            _horizontal = 0;
         }
         
-
-        PlayerMovementAnimation(horizontal, vertical);
-        MoveCharacter(horizontal, vertical);
+        PlayerMovementAnimation(_horizontal, _vertical);
+        MoveCharacter(_horizontal, _vertical);
 
         //  Changing isGrounded parameter in animator.
         if(IsPlayerGrounded()) { _animator.SetBool("isGrounded", true ); }
@@ -65,22 +65,62 @@ public class PlayerController : MonoBehaviour
         // DamagePlayerHealth();
     }
 
+    private void PlayerInputs()
+    {
+        //  Detecting user inputs
+        _horizontal = Input.GetAxisRaw("Horizontal");
+        _vertical = Input.GetAxisRaw("Jump");
+    }
+
     // private void DamagePlayerHealth()
     // {
         
     // }
     private void Footstep()
     {
-        footstep.Play();
+        _footstep.Play();
     }
 
+    private void PlayerMovementAnimation(float horizontal,float vertical)   
+    {   
+        //  Horizontal Movement Animation
+        _animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        Vector3 scale = transform.localScale;
+        
+        if(horizontal < 0) {
+            scale.x = -1f * Mathf.Abs(scale.x);
+        } 
+        else if(horizontal > 0) {
+            scale.x = Mathf.Abs(scale.x);
+        }
+        transform.localScale = scale;
+    
+        //  JUMP
+        if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
+            _animator.SetTrigger("Jump");
+            SoundManager.Instance.Play(SoundTypes.PlayerJump);
+        }
+
+        //  Crouch
+        if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
+            _animator.SetBool("Crouch", true);
+            isCrouched = true;
+
+        }
+        else if(Input.GetKeyUp(KeyCode.C)) {
+            _animator.SetBool("Crouch", false);
+            isCrouched = false;
+        }
+    }
+    
     private void MoveCharacter(float horizontal,float vertical)
     {  
         //   Move character horizontally
-       
-        Vector3 position = transform.position;
+
+        var transform1 = transform;
+        Vector3 position = transform1.position;
         position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
+        transform1.position = position;
        
        //   Jump
         if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
@@ -89,14 +129,14 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    public void PlayerDied() 
+    public void Died() 
     {   
         if(isDead) 
             return;
         Debug.Log("Player killed by enemy");
         _animator.SetTrigger("Death");
         isDead  = true;
-        SoundManager.Instance.Play(SoundTypes.MusicDeathSting);
+        
         
         StartCoroutine(gameOverUI.GameOver());
     }
@@ -150,32 +190,5 @@ public class PlayerController : MonoBehaviour
         return raycastHit2d.collider != null;
     }
 
-    private void PlayerMovementAnimation(float horizontal,float vertical)   
-    {   //  Horizontal Movement Animation
-            _animator.SetFloat("Speed", Mathf.Abs(horizontal));
-            Vector3 scale = transform.localScale;
-            if(horizontal < 0) {
-                scale.x = -1f * Mathf.Abs(scale.x);
-            } 
-            else if(horizontal > 0) {
-                scale.x = Mathf.Abs(scale.x);
-            }
-            transform.localScale = scale;
     
-            //  JUMP
-            if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
-                _animator.SetTrigger("Jump");
-            }
-
-            //  Crouch
-            if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
-                _animator.SetBool("Crouch", true);
-                isCrouched = true;
-
-            }
-            else if(Input.GetKeyUp(KeyCode.C)) {
-                _animator.SetBool("Crouch", false);
-                isCrouched = false;
-            }
-    }
 }

@@ -12,4 +12,6 @@ public static class GameManager
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
+    
 }

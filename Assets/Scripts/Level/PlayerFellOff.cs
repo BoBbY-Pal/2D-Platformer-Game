@@ -11,6 +11,6 @@ public class PlayerFellOff : MonoBehaviour
         if (_playerController == null) return;
         Debug.Log("Player fell off!!");
         
-        _playerController.PlayerDied();
+        _playerController.Died();
     }
 }

@@ -21,15 +21,15 @@ public class LevelLoader : MonoBehaviour
                SoundManager.Instance.Play(SoundTypes.LevelSelected);
                Debug.Log("This level is locked!!");
                break;
+            
             case LevelStatus.Unlocked:
                SoundManager.Instance.Play(SoundTypes.LevelSelected);
                SceneManager.LoadScene(levelName);
-               SoundManager.Instance.Play(SoundTypes.EnvironmentalAmbiant);
                break;
+            
             case LevelStatus.Completed:
                SoundManager.Instance.Play(SoundTypes.LevelSelected);
                SceneManager.LoadScene(levelName);
-               SoundManager.Instance.Play(SoundTypes.EnvironmentalAmbiant);
                break;
        }
     }
