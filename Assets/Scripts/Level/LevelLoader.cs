@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class LevelLoader : MonoBehaviour
             
             case LevelStatus.Locked:
                SoundManager.Instance.Play(SoundTypes.LevelSelected);
-               Debug.Log("This level is locked!!");
+               StartCoroutine(LevelLockedPopUp());
                break;
             
             case LevelStatus.Unlocked:
@@ -32,5 +33,12 @@ public class LevelLoader : MonoBehaviour
                SceneManager.LoadScene(levelName);
                break;
        }
+    }
+
+    private IEnumerator LevelLockedPopUp()
+    {
+       LevelsManager.Instance.levelLockedMsg.SetActive(true);
+       yield return new WaitForSeconds(3f);
+       LevelsManager.Instance.levelLockedMsg.SetActive(false);
     }
 }

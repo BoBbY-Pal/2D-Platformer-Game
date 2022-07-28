@@ -5,8 +5,10 @@ public class LevelsManager : MonoBehaviour
 {
     private static LevelsManager instance;
     public static LevelsManager Instance{ get { return instance; } }
-    public string[] levels;
     
+    public GameObject levelLockedMsg;
+    public string[] levels;
+
     private void Awake() 
     {
         if(instance == null) {
