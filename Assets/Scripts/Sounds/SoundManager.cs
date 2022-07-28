@@ -6,11 +6,13 @@ public class SoundManager : MonoBehaviour
     public AudioSource soundEffect;
     public AudioSource soundMusic;
     public AudioSource environmentSound;
-    public Sounds[] sound;
+    
     public bool isMute;
     
     [Range(0f, 1f)]
     public float volume = 1f;
+    public Sounds[] sound;
+    
 
     #region SINGLETON
     public static SoundManager Instance { get; private set; }

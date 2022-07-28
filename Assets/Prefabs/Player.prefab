@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1130387677}
   - component: {fileID: 1130387678}
   - component: {fileID: 1130387676}
-  - component: {fileID: 1130387681}
   - component: {fileID: 1204389752}
+  - component: {fileID: 1130387681}
   m_Layer: 13
   m_Name: Player
   m_TagString: Untagged
@@ -143,36 +143,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1130387681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828240705768726352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8bff4db05e22514a8d01e8118fd5a65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 5
-  numOfHeart: 5
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  fullHeart: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
-  emptyHeart: {fileID: 21300000, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
-  animator: {fileID: 1130387676}
-  speed: 10
-  jump: 25
-  gameOverUI: {fileID: 0}
-  scoreController: {fileID: 0}
-  platformLayerMask:
-    serializedVersion: 2
-    m_Bits: 2147483648
 --- !u!82 &1204389752
 AudioSource:
   m_ObjectHideFlags: 0
@@ -269,3 +239,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1130387681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828240705768726352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8bff4db05e22514a8d01e8118fd5a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 5
+  maxHealth: 5
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 21300010, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
+  emptyHeart: {fileID: 21300000, guid: fc49794cc535bef4f969645c4eb97b80, type: 3}
+  speed: 10
+  jump: 25
+  gameOverUI: {fileID: 0}
+  scoreController: {fileID: 0}
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 2147483648

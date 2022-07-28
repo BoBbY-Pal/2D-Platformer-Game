@@ -9,17 +9,15 @@ public class GameOverUI : MonoBehaviour
     private Button restartButton;
     [SerializeField]
     private Button exitButton;
-    [SerializeField]
-    private Animator gameOverEllen;
-    
+
     private void Awake() {
         restartButton.onClick.AddListener(RestartGame);
         exitButton.onClick.AddListener(ReturnToMain);
     }
 
-    public IEnumerator GameOver() 
-    {
-        yield return new WaitForSeconds(2f);
+    public IEnumerator GameOver()
+    { 
+        yield return new WaitForSeconds(2.5f);
         SoundManager.Instance.Play(SoundTypes.MusicDeathSting);
         gameObject.SetActive(true);   // Game over panel
         SoundManager.Instance.Mute(true);

@@ -2347,6 +2347,8 @@ MonoBehaviour:
   soundEffect: {fileID: 2053656266}
   soundMusic: {fileID: 1721083672}
   environmentSound: {fileID: 2038190484}
+  isMute: 0
+  volume: 1
   sound:
   - soundType: 2
     soundClip: {fileID: 8300000, guid: 68c65aec95671b549be3b900cc305b1e, type: 3}
@@ -2364,8 +2366,6 @@ MonoBehaviour:
     soundClip: {fileID: 8300000, guid: e5cb0976ee7cf93489107ede5175519b, type: 3}
   - soundType: 8
     soundClip: {fileID: 8300000, guid: c5b0c76e1664a8b4ab228f31c8caddef, type: 3}
-  isMute: 0
-  volume: 1
 --- !u!4 &315186136
 Transform:
   m_ObjectHideFlags: 0
@@ -22050,7 +22050,7 @@ PrefabInstance:
       objectReference: {fileID: 1240520391}
     - target: {fileID: 1130387681, guid: dd63b48e1b57e0944ab7a626f131fd1b, type: 3}
       propertyPath: currentHealth
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1130387681, guid: dd63b48e1b57e0944ab7a626f131fd1b, type: 3}
       propertyPath: scoreController
@@ -24374,7 +24374,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3a9ba69f03694d44a9968f5b7c4abb1c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

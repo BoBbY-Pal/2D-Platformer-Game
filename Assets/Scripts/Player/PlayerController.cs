@@ -1,17 +1,19 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {  
     //   For health function 
     public int currentHealth;
-    public int numOfHeart;
+    public int maxHealth;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-
+    
+    
     //---------------------------------------------------
-
-    private Animator _animator;
+    private Animator _playerAnimator;
     public float speed;
     private bool isCrouched;
     public float jump;
@@ -27,16 +29,24 @@ public class PlayerController : MonoBehaviour
     // Input axis
     private float _vertical;
     private float _horizontal;
-    void Awake() 
+    
+    void Awake()
     {
+        currentHealth = maxHealth;
+        
         _footstep = GetComponent<AudioSource>();
-        _animator = GetComponent<Animator>();
+        _playerAnimator = GetComponent<Animator>();
         _capsuleCollider2d = gameObject.GetComponent<CapsuleCollider2D>();
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         
         isDead = false;
         
         SoundManager.Instance.PlayEnvironmentMusic(SoundTypes.EnvironmentalAmbiance);
+    }
+
+    private void Start()
+    {
+        ShowLives();
     }
 
     void Update()
@@ -48,7 +58,6 @@ public class PlayerController : MonoBehaviour
         
         PlayerInputs();
         
-        HealthHeart();
 
         //  Setting speed to zero so that player can't move while crouching.
         if(isCrouched) {
@@ -59,18 +68,13 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(_horizontal, _vertical);
 
         //  Changing isGrounded parameter in animator.
-        if(IsPlayerGrounded()) { _animator.SetBool("isGrounded", true ); }
-        else { _animator.SetBool("isGrounded", false ); }
+        if(IsPlayerGrounded()) { _playerAnimator.SetBool("isGrounded", true ); }
+        else { _playerAnimator.SetBool("isGrounded", false ); }
         
         // DamagePlayerHealth();
     }
 
-    private void PlayerInputs()
-    {
-        //  Detecting user inputs
-        _horizontal = Input.GetAxisRaw("Horizontal");
-        _vertical = Input.GetAxisRaw("Jump");
-    }
+    
 
     // private void DamagePlayerHealth()
     // {
@@ -81,10 +85,18 @@ public class PlayerController : MonoBehaviour
         _footstep.Play();
     }
 
+    #region MOVEMENT
+    private void PlayerInputs()
+    {
+        //  Detecting user inputs
+        _horizontal = Input.GetAxisRaw("Horizontal");
+        _vertical = Input.GetAxisRaw("Jump");
+    }
+    
     private void PlayerMovementAnimation(float horizontal,float vertical)   
     {   
         //  Horizontal Movement Animation
-        _animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        _playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
         
         if(horizontal < 0) {
@@ -97,18 +109,18 @@ public class PlayerController : MonoBehaviour
     
         //  JUMP
         if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.Space)) {
-            _animator.SetTrigger("Jump");
+            _playerAnimator.SetTrigger("Jump");
             SoundManager.Instance.Play(SoundTypes.PlayerJump);
         }
 
         //  Crouch
         if(IsPlayerGrounded() && Input.GetKeyDown(KeyCode.C)) {
-            _animator.SetBool("Crouch", true);
+            _playerAnimator.SetBool("Crouch", true);
             isCrouched = true;
 
         }
         else if(Input.GetKeyUp(KeyCode.C)) {
-            _animator.SetBool("Crouch", false);
+            _playerAnimator.SetBool("Crouch", false);
             isCrouched = false;
         }
     }
@@ -128,51 +140,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-
-    public void Died() 
-    {   
-        if(isDead) 
-            return;
-        Debug.Log("Player killed by enemy");
-        _animator.SetTrigger("Death");
-        isDead  = true;
-        
-        
-        StartCoroutine(gameOverUI.GameOver());
-    }
-
-    public void KeyPickUp() 
-    {
-        Debug.Log("Key picked  up");
-        SoundManager.Instance.Play(SoundTypes.Pickup);
-        scoreController.IncreaseScore(50);
-    }
-
-    private void HealthHeart()
-    {   
-        if(currentHealth > numOfHeart) {
-            currentHealth = numOfHeart;
-        }
-        
-        for (int i = 0; i < hearts.Length; i++)
-        {   
-            if(i < currentHealth) 
-            {
-                hearts[i].sprite = fullHeart;    
-            } 
-            else 
-                hearts[i].sprite = emptyHeart;
-
-            if(i < numOfHeart ) 
-            {
-                hearts[i].enabled = true;
-            } 
-            else 
-                hearts[i].enabled = false;
-        }
-    
-    }
-    
     private bool IsPlayerGrounded()         //  Checks player is on ground or not
     {   
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(_capsuleCollider2d.bounds.center, _capsuleCollider2d.bounds.size, 0f, Vector2.down, .1f, platformLayerMask);
@@ -189,6 +156,54 @@ public class PlayerController : MonoBehaviour
         Debug.Log(raycastHit2d.collider);
         return raycastHit2d.collider != null;
     }
+    #endregion
 
+    public void Hurt()
+    {
+        _playerAnimator.SetTrigger("ItHurts");
+        currentHealth--;
+        ShowLives();
+
+        if (currentHealth > 0) return;
+        Died();
+    }
+    
+    public void Died() 
+    {   
+        if(isDead) 
+            return;
+        
+        currentHealth = 0;
+        Debug.Log("Player killed by enemy");
+        _playerAnimator.SetTrigger("Death");
+        _playerAnimator.SetBool("IsDead", true);
+        isDead  = true;
+
+        ShowLives();
+        StartCoroutine(gameOverUI.GameOver());
+    }
+
+    private void ShowLives()
+    {   
+        if(currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
+        
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].sprite = i < currentHealth ? fullHeart : emptyHeart;
+
+            hearts[i].enabled = i < maxHealth;
+        }
+    
+    }
+    
+    
+    public void KeyPickUp() 
+    {
+        Debug.Log("Key picked  up");
+        SoundManager.Instance.Play(SoundTypes.Pickup);
+        scoreController.IncreaseScore(50);
+    }
     
 }

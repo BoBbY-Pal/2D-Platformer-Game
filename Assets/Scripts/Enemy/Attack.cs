@@ -16,16 +16,18 @@ public class Attack : MonoBehaviour
     {  
         
         _playerController = enemyCollision.gameObject.GetComponent<PlayerController>();
-
+        
         if (_playerController == null) return;
+
         _animator.SetTrigger("Attack");     // PLays chomper attack animation.
         SoundManager.Instance.Play(SoundTypes.ChomperAttack);
-        StartCoroutine(PlayerDied());
+
+        StartCoroutine(HurtPlayer());
     }
 
-    private IEnumerator PlayerDied()
+    IEnumerator HurtPlayer()
     {
         yield return new WaitForSeconds(.5f);
-        _playerController.Died();
+        _playerController.Hurt();
     }
 } 
