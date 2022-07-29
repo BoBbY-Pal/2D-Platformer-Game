@@ -1,11 +1,11 @@
 # 2D-Platformer-Game
 > This is 2D platformer game called "The Explorer"
 ## Key Features:
-  ⦿ Animated UI & player with customized collider according to animations. 
-  ⦿ Enemy AI for patrolling and attacking on a defined path.
-  ⦿ Level unlocking system using Enums, PlayerPrefs and Singleton design pattern.
-  ⦿ Efficient sound manager which handles all the sounds easily.
-  ⦿ Responsive UI for player’s health and collectables.
+  ⦿ Animated UI & player with customized collider according to animations. <br /> 
+  ⦿ Enemy AI for patrolling and attacking on a defined path.<br /> 
+  ⦿ Level unlocking system using Enums, PlayerPrefs and Singleton design pattern.<br /> 
+  ⦿ Efficient sound manager which handles all the sounds easily.<br /> 
+  ⦿ Responsive UI for player’s health and collectables.<br /> 
   
   
 ## Visuals
