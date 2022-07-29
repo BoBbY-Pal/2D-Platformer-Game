@@ -1,21 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
-{   
-    public Button playButton;
-    void Awake() 
-    {
-        playButton.onClick.AddListener(LevelSelection);  
+{
+    public void StartGame()
+    {  
+        SoundManager.Instance.Play(SoundTypes.StartButtonClick);
+        SceneManager.LoadScene(1);
     }
 
-    private void LevelSelection()
-    {  
-        SoundManager.Instance.Play(Sounds.StartButtonClick);
-        SceneManager.LoadScene(1);
+    public void Options()
+    {
+        throw new NotImplementedException();
+    }
+    
+    public void Quit()
+    {
+        SoundManager.Instance.Play(SoundTypes.BackButtonClick);
+        Application.Quit();
     }
 }
