@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
@@ -27,7 +25,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
 
     // Input axis
-    private float _vertical;
     private float _horizontal;
     
     void Awake()
@@ -64,22 +61,13 @@ public class PlayerController : MonoBehaviour
             _horizontal = 0;
         }
         
-        PlayerMovementAnimation(_horizontal, _vertical);
-        MoveCharacter(_horizontal, _vertical);
+        PlayerMovementAnimation(_horizontal);
+        MoveCharacter(_horizontal);
 
         //  Changing isGrounded parameter in animator.
-        if(IsPlayerGrounded()) { _playerAnimator.SetBool("isGrounded", true ); }
-        else { _playerAnimator.SetBool("isGrounded", false ); }
-        
-        // DamagePlayerHealth();
+        _playerAnimator.SetBool("isGrounded", IsPlayerGrounded());
     }
-
     
-
-    // private void DamagePlayerHealth()
-    // {
-        
-    // }
     private void Footstep()
     {
         _footstep.Play();
@@ -90,10 +78,9 @@ public class PlayerController : MonoBehaviour
     {
         //  Detecting user inputs
         _horizontal = Input.GetAxisRaw("Horizontal");
-        _vertical = Input.GetAxisRaw("Jump");
     }
     
-    private void PlayerMovementAnimation(float horizontal,float vertical)   
+    private void PlayerMovementAnimation(float horizontal)   
     {   
         //  Horizontal Movement Animation
         _playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -125,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void MoveCharacter(float horizontal,float vertical)
+    private void MoveCharacter(float horizontal)
     {  
         //   Move character horizontally
 
@@ -143,17 +130,11 @@ public class PlayerController : MonoBehaviour
     private bool IsPlayerGrounded()         //  Checks player is on ground or not
     {   
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(_capsuleCollider2d.bounds.center, _capsuleCollider2d.bounds.size, 0f, Vector2.down, .1f, platformLayerMask);
-        Color rayColor;
-        if(raycastHit2d.collider != null) {
-            rayColor = Color.cyan;
-        } else {
-            rayColor = Color.red;
-        }
+        Color rayColor = raycastHit2d.collider != null ? Color.cyan : Color.red;
         Debug.DrawRay(_capsuleCollider2d.bounds.center + new Vector3(_capsuleCollider2d.bounds.extents.x, 0), Vector2.down * (_capsuleCollider2d.bounds.extents.y + .1f), rayColor);
         Debug.DrawRay(_capsuleCollider2d.bounds.center - new Vector3(_capsuleCollider2d.bounds.extents.x, 0), Vector2.down * (_capsuleCollider2d.bounds.extents.y + .1f), rayColor);
         Debug.DrawRay(_capsuleCollider2d.bounds.center - new Vector3(_capsuleCollider2d.bounds.extents.x, _capsuleCollider2d.bounds.extents.y + .1f), Vector2.right * (_capsuleCollider2d.bounds.extents.x), rayColor);
-
-        Debug.Log(raycastHit2d.collider);
+        
         return raycastHit2d.collider != null;
     }
     #endregion
